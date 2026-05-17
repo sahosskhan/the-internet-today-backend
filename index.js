@@ -1,3 +1,4 @@
+
 const dns = require('dns');
 dns.setServers(["1.1.1.1", "8.8.8.8"]); // Using Cloudflare + Google DNS
 
@@ -15,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Get URI from .env
-const uri = process.env.MONGODB_URI;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ftfczjs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 // Safety check
 if (!uri) {
@@ -745,114 +746,114 @@ async function run() {
 
 
 
-/**
- * ROUTE OPERATION: POST /internships
-
- */
-app.post('/internships', async (req, res) => {
-    try {
+    /**
+     * ROUTE OPERATION: POST /internships
+    
+     */
+    app.post('/internships', async (req, res) => {
+      try {
         const payload = req.body;
         const outcomeResult = await intershipCollection.insertOne(payload);
         res.send(outcomeResult);
-    } catch (error) {
+      } catch (error) {
         res.status(500).send({ error: true, message: "Internal server payload operational write failure" });
-    }
-});
+      }
+    });
 
-/**
- * ROUTE OPERATION: GET /internships
- * DESCRIPTION: Pulls complete datasets from structural data layers for dashboard synchronization
- */
-app.get('/internships', async (req, res) => {
-    try {
+    /**
+     * ROUTE OPERATION: GET /internships
+     * DESCRIPTION: Pulls complete datasets from structural data layers for dashboard synchronization
+     */
+    app.get('/internships', async (req, res) => {
+      try {
         const outputDataset = await intershipCollection.find().toArray();
         res.send(outputDataset);
-    } catch (error) {
+      } catch (error) {
         res.status(500).send({ error: true, message: "Data frame retrieval operation failed" });
-    }
-});
+      }
+    });
 
-/**
- * ROUTE OPERATION: GET /internships/:id
- * DESCRIPTION: Queries a singular entry item for form population actions matching explicit parameters
- */
-app.get('/internships/:id', async (req, res) => {
-    try {
+    /**
+     * ROUTE OPERATION: GET /internships/:id
+     * DESCRIPTION: Queries a singular entry item for form population actions matching explicit parameters
+     */
+    app.get('/internships/:id', async (req, res) => {
+      try {
         const structuralTargetId = req.params.id;
         const querySpecification = { _id: new ObjectId(structuralTargetId) };
         const isolatedRecordNode = await intershipCollection.findOne(querySpecification);
         res.send(isolatedRecordNode);
-    } catch (error) {
+      } catch (error) {
         res.status(500).send({ error: true, message: "Target profile search indexing interrupt encountered" });
-    }
-});
+      }
+    });
 
-/**
- * ROUTE OPERATION: PATCH /internships/update/:id
- * DESCRIPTION: Rewrites parameters of an existing data node with fresh input payload values
- */
-app.patch('/internships/update/:id', async (req, res) => {
-    try {
+    /**
+     * ROUTE OPERATION: PATCH /internships/update/:id
+     * DESCRIPTION: Rewrites parameters of an existing data node with fresh input payload values
+     */
+    app.patch('/internships/update/:id', async (req, res) => {
+      try {
         const structuralTargetId = req.params.id;
         const inputUpdatePayload = req.body;
         const evaluationFilter = { _id: new ObjectId(structuralTargetId) };
-        
+
         const updateSpecificationMap = {
-            $set: {
-                internshipID: inputUpdatePayload.internshipID,
-                name: inputUpdatePayload.name,
-                internshipName: inputUpdatePayload.internshipName,
-                batch: inputUpdatePayload.batch,
-                duration: inputUpdatePayload.duration,
-                startingDate: inputUpdatePayload.startingDate,
-                finishingDate: inputUpdatePayload.finishingDate,
-                currentStatus: inputUpdatePayload.currentStatus,
-                certificateURL: inputUpdatePayload.certificateURL
-            }
+          $set: {
+            internshipID: inputUpdatePayload.internshipID,
+            name: inputUpdatePayload.name,
+            internshipName: inputUpdatePayload.internshipName,
+            batch: inputUpdatePayload.batch,
+            duration: inputUpdatePayload.duration,
+            startingDate: inputUpdatePayload.startingDate,
+            finishingDate: inputUpdatePayload.finishingDate,
+            currentStatus: inputUpdatePayload.currentStatus,
+            certificateURL: inputUpdatePayload.certificateURL
+          }
         };
 
         const mutationOutcome = await intershipCollection.updateOne(evaluationFilter, updateSpecificationMap);
         res.send(mutationOutcome);
-    } catch (error) {
+      } catch (error) {
         res.status(500).send({ error: true, message: "Serialization update overwrite process failure" });
-    }
-});
+      }
+    });
 
-/**
- * ROUTE OPERATION: PATCH /internships/status/:id
- * DESCRIPTION: Safely updates specific metadata tracking metrics like node status settings
- */
-app.patch('/internships/status/:id', async (req, res) => {
-    try {
+    /**
+     * ROUTE OPERATION: PATCH /internships/status/:id
+     * DESCRIPTION: Safely updates specific metadata tracking metrics like node status settings
+     */
+    app.patch('/internships/status/:id', async (req, res) => {
+      try {
         const structuralTargetId = req.params.id;
         const requestedStatusUpdate = req.body.status;
         const targetFilterCriteria = { _id: new ObjectId(structuralTargetId) };
-        
+
         const dynamicInstructionNode = {
-            $set: { status: requestedStatusUpdate }
+          $set: { status: requestedStatusUpdate }
         };
 
         const patchActionResponse = await intershipCollection.updateOne(targetFilterCriteria, dynamicInstructionNode);
         res.send(patchActionResponse);
-    } catch (error) {
+      } catch (error) {
         res.status(500).send({ error: true, message: "Node global visibility state manipulation broken" });
-    }
-});
+      }
+    });
 
-/**
- * ROUTE OPERATION: DELETE /internships/:id
- * DESCRIPTION: Purges a targeted database data element node permanently from active clusters
- */
-app.delete('/internships/:id', async (req, res) => {
-    try {
+    /**
+     * ROUTE OPERATION: DELETE /internships/:id
+     * DESCRIPTION: Purges a targeted database data element node permanently from active clusters
+     */
+    app.delete('/internships/:id', async (req, res) => {
+      try {
         const structuralTargetId = req.params.id;
         const exclusionFilterCriteria = { _id: new ObjectId(structuralTargetId) };
         const destructionExecutionOutcome = await intershipCollection.deleteOne(exclusionFilterCriteria);
         res.send(destructionExecutionOutcome);
-    } catch (error) {
+      } catch (error) {
         res.status(500).send({ error: true, message: "Target document execution clear sequence interrupted" });
-    }
-});
+      }
+    });
 
     // Helper utility to convert standard date picker metrics (YYYY-MM-DD) to text layout matrices (Month DD, YYYY)
     const clearDateFormat = (inputDateStr) => {
