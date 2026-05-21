@@ -43,16 +43,34 @@ const clearDateFormat = (inputDateStr) => {
 };
 
 const roleSeniorityWeight = {
-  "Founder": 1, "Co Founder": 2, "Chief Editor": 3, "Chief Of Technology": 4,
-  "Chief Of HR": 5, "Head OF PR": 6, "Head Of Operation": 7, "Head Of Collaboration": 8,
-  "Head Of SMM": 9, "Head OF Graphics": 10, "Head Of Content Writings": 11,
-  "Head Of Content Research": 12, "Assistant Head Of HR": 13, "Assistant Head OF PR": 14,
-  "Assistant Head Of Operation": 15, "Assistant Head Of Collaboration": 16,
-  "Assistant Head Of SMM": 17, "Assistant Head OF Graphics": 18,
-  "Assistant Head Of Content Writings": 19, "Assistant Head Of Content Research": 20,
-  "HR Executive": 21, "PR Executive": 22, "Operation Executive": 23,
-  "Collaboration Executive": 24, "Social Media Manager": 25,
-  "Graphics Designer": 26, "Content Writer": 27, "Content Researcher": 28
+  "Founder": 1,
+  "Co Founder": 2,
+  "Chief Editor": 3,
+  "Chief Of Technology": 4,
+  "Chief Of HR": 5,
+  "Head Of Operation": 6,
+  "Head OF Graphics": 7,
+  "Head Of Content Writings": 8,
+  "Head Of SMM": 9,
+  "Head OF PR": 10,
+  "Head Of Collaboration": 11,
+  "Head Of Content Research": 12,
+  "Assistant Head Of HR": 13,
+  "Assistant Head OF PR": 14,
+  "Assistant Head Of Operation": 15,
+  "Assistant Head Of Collaboration": 16,
+  "Assistant Head Of SMM": 17,
+  "Assistant Head OF Graphics": 18,
+  "Assistant Head Of Content Writings": 19,
+  "Assistant Head Of Content Research": 20,
+  "HR Executive": 21,
+  "PR Executive": 22,
+  "Operation Executive": 23,
+  "Collaboration Executive": 24,
+  "Social Media Manager": 25,
+  "Graphics Designer": 26,
+  "Content Writer": 27,
+  "Content Researcher": 28
 };
 
 app.get("/", (req, res) => {
